@@ -51,10 +51,13 @@ make run
 After executing these commands, you will be inside the Docker environment. The working directory within the container is set to: `/home/appuser/Grounded-SAM-2`
 
 
-## Demos
+## Start Inference
 ### Shot boundary detection
+Pre-trained model 
+* [Google Drive Link](https://drive.google.com/drive/folders/10zNLZqrdd2fqymdO3Gx1MFW7KpWQIX4g?usp=sharing) 
+* AWS S3 Link: ```s3://hotstar-ads-ml-us-east-1-prod/content-intelligence/video-tagging-models/transnetv2-weights.zip```
 ```
-TODO
+python shot_boundary_detection/inference.py --result_dir xxx --video xxx --threshold 0.45
 ```
 
 ### Inference Grounded-SAM2
