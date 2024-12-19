@@ -177,6 +177,8 @@ def load_video_frames(
     img_std=(0.229, 0.224, 0.225),
     async_loading_frames=False,
     compute_device=torch.device("cuda"),
+    start_idx=None,
+    end_idx=None,
 ):
     """
     Load the video frames from video_path. The frames are resized to image_size as in
@@ -203,6 +205,8 @@ def load_video_frames(
             img_std=img_std,
             async_loading_frames=async_loading_frames,
             compute_device=compute_device,
+            start_idx=start_idx,
+            end_idx=end_idx,
         )
     else:
         raise NotImplementedError(
@@ -218,6 +222,8 @@ def load_video_frames_from_jpg_images(
     img_std=(0.229, 0.224, 0.225),
     async_loading_frames=False,
     compute_device=torch.device("cuda"),
+    start_idx=None,
+    end_idx=None,
 ):
     """
     Load the video frames from a directory of JPEG files ("<frame_index>.jpg" format).
@@ -240,11 +246,12 @@ def load_video_frames_from_jpg_images(
             "ffmpeg to start the JPEG file from 00000.jpg."
         )
 
-    frame_names = [
-        p
-        for p in os.listdir(jpg_folder)
-        if os.path.splitext(p)[-1] in [".jpg", ".jpeg", ".JPG", ".JPEG"]
-    ]
+    # frame_names = [
+    #     p
+    #     for p in os.listdir(jpg_folder)
+    #     if os.path.splitext(p)[-1] in [".jpg", ".jpeg", ".JPG", ".JPEG"]
+    # ]
+    frame_names = [f"{str(i+1).zfill(8)}.jpg" for i in range(start_idx, end_idx+1)]
     frame_names.sort(key=lambda p: int(os.path.splitext(p)[0]))
     num_frames = len(frame_names)
     if num_frames == 0:
