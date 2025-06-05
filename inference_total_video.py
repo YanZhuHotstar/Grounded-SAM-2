@@ -84,7 +84,7 @@ if __name__ == "__main__":
             input_boxes = results[0]["boxes"].cpu().numpy()
             OBJECTS = results[0]["labels"]
             # try:
-            if True:
+            if len(input_boxes)>0:
                 masks, scores, logits = image_predictor.predict(
                     point_coords=None,
                     point_labels=None,
